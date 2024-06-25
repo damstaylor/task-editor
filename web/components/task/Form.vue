@@ -22,9 +22,8 @@
             <FormSelect
               name="taskStatus-form"
               label="Status"
-              :value="taskFormData.status"
+              v-model="taskFormData.status"
               :options="TASK_STATUS"
-              @input="onSelectInput"
             />
           </div>
         </div>
@@ -91,9 +90,7 @@ export default {
       const [err, task] = await this.$api.tasks.findOne(this.id)
       if (!err) {
         const taskFormData = { ...task, status: task.status.value }
-        if (taskFormData.date) {
-          taskFormData.date = task.date.slice(0, 10)
-        }
+        taskFormData.date = taskFormData.date ? task.date.slice(0, 10) : ''
         this.taskFormData = taskFormData
       }
     }
