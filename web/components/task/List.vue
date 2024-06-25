@@ -35,7 +35,7 @@
             </h2>
           </div>
           <div class="flex gap-2">
-            <button class="bg-indigo-500 hover:opacity-80 text-white rounded">
+            <button class="bg-indigo-500 hover:opacity-80 text-white rounded" @click="edit(task.id)">
               <SvgIcon name="pencil" class="w-5 h-5 m-1" />
             </button>
             <button class="bg-red-500 hover:opacity-80 text-white rounded">
@@ -107,6 +107,9 @@ export default {
     },
     onSelectInput (value) {
       this.$emit('change-status', value)
+    },
+    edit (id) {
+      this.$router.push(`/edit/${id}`)
     }
   }
 }

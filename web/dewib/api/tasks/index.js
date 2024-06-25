@@ -100,7 +100,7 @@ export default class TasksService extends ApiModel {
    * @returns Task
    */
   update (id, form) {
-    return this.patch(form, {
+    return this.patch(`${id}`, form, {
       fields: TASK_FIELDS
     })
   }

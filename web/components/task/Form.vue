@@ -92,7 +92,11 @@ export default {
     if (this.isUpdate) {
       const [err, task] = await this.$api.tasks.findOne(this.id)
       if (!err) {
-        this.taskFormData = task
+        const taskFormData = { ...task, status: task.status.value }
+        if (taskFormData.date) {
+          taskFormData.date = task.date.slice(0, 10)
+        }
+        this.taskFormData = taskFormData
       }
     }
   },
