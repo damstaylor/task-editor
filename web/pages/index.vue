@@ -6,7 +6,12 @@
     <p v-else-if="$fetchState.error" class="text-red-700 text-2xl py-5">
       Unable to fetch tasks.
     </p>
-    <TaskList v-else :tasks="tasks" @change-status="fetchAllTasks($event)" />
+    <TaskList
+      v-else
+      :tasks="tasks"
+      @change-status="fetchAllTasks($event)"
+      @reload="fetchAllTasks($event)"
+    />
   </div>
 </template>
 

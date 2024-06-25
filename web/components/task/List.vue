@@ -35,10 +35,10 @@
             </h2>
           </div>
           <div class="flex gap-2">
-            <button class="bg-indigo-500 hover:opacity-80 text-white rounded" @click="edit(task.id)">
+            <button class="bg-indigo-500 hover:opacity-80 text-white rounded" @click="navigateToEdit(task.id)">
               <SvgIcon name="pencil" class="w-5 h-5 m-1" />
             </button>
-            <button class="bg-red-500 hover:opacity-80 text-white rounded">
+            <button class="bg-red-500 hover:opacity-80 text-white rounded" @click="askDeleteConfirmation(task)">
               <SvgIcon name="trash" class="w-5 h-5 m-1" />
             </button>
           </div>
@@ -108,8 +108,17 @@ export default {
     onSelectInput (value) {
       this.$emit('change-status', value)
     },
-    edit (id) {
+    navigateToEdit (id) {
       this.$router.push(`/edit/${id}`)
+    },
+    askDeleteConfirmation (task) {
+      if (confirm(`Delete task '${task.title}'?`)) {
+        this.delete(task.id)
+      }
+    },
+    async delete (id) {
+      await this.$api.tasks.remove(id)
+      this.$emit('reload', this.currentFilterValue)
     }
   }
 }
