@@ -79,6 +79,12 @@ export default {
       currentFilterValue: 'ALL'
     }
   },
+  mounted () {
+    const cachedFilterValue = localStorage.getItem('taskStatusFilterValue')
+    if (cachedFilterValue) {
+      this.currentFilterValue = cachedFilterValue
+    }
+  },
   methods: {
     statusClass (status) {
       switch (status) {
@@ -106,6 +112,7 @@ export default {
       }).replace('at', '-')
     },
     onSelectInput (value) {
+      localStorage.setItem('taskStatusFilterValue', value)
       this.$emit('change-status', value)
     },
     navigateToEdit (id) {
