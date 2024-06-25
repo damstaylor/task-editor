@@ -6,7 +6,7 @@
     <p v-else-if="$fetchState.error" class="text-red-700 text-2xl py-5">
       Unable to fetch tasks.
     </p>
-    <TaskList v-else :tasks="tasks" />
+    <TaskList v-else :tasks="tasks" @change-status="fetchAllTasks($event)" />
   </div>
 </template>
 
@@ -18,13 +18,19 @@ export default {
     }
   },
   async fetch () {
-    const [err, tasks] = await this.$api.tasks.findAll()
+    await this.fetchAllTasks()
+  },
+  methods: {
+    async fetchAllTasks (status) {
+      const filters = status && typeof status === 'string' && status !== 'ALL' ? { status } : undefined
+      const [err, tasks] = await this.$api.tasks.findAll(filters)
 
-    if (err) {
-      throw new Error(err)
+      if (err) {
+        throw new Error(err)
+      }
+
+      this.tasks = tasks
     }
-
-    this.tasks = tasks
   }
 }
 </script>

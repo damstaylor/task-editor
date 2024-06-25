@@ -46,7 +46,7 @@ export class AppService {
       : this.tasks;
 
     // The tasks must be listed by ascending deadline `date`, then by order of creation `createdAt` if no deadline `date`.
-    // You can use external libraries to perform this.
+    orderBy(_tasks, ['date', 'createdAt'], ['asc', 'asc'])
     return _tasks;
   }
 
