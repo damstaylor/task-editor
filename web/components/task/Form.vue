@@ -9,25 +9,23 @@
       </div>
       <form class="px-8 py-6 rounded-lg shadow" @submit.prevent="handleSubmit">
         <div class="mb-4">
-          <label class="block text-gray-700 font-semibold mb-2" for="title">Title</label>
-          <input id="title" v-model="taskFormData.title" class="w-full p-2 border-gray-300 rounded" type="text" required>
+          <FormInput label="Title" name="title" v-model="taskFormData.title" type="text" />
         </div>
         <div class="mb-4">
-          <label class="block text-gray-700 font-semibold mb-2" for="description">Describe it</label>
-          <textarea id="description" v-model="taskFormData.description" class="w-full p-2 border-gray-300 rounded" required />
+          <FormInputTextArea label="Describe it" name="description" v-model="taskFormData.description" />
         </div>
         <div class="flex gap-2 mb-4">
           <div class="flex-1 w-1/2">
-            <label class="block text-gray-700 font-semibold mb-2" for="date">Date</label>
-            <input id="date" v-model="taskFormData.date" class="w-full p-2 border-gray-300 rounded" type="date">
+            <FormInput label="Date" name="date" v-model="taskFormData.date" type="date" />
           </div>
           <div class="flex-1 w-1/2">
-            <label class="block text-gray-700 font-semibold mb-2" for="status">Status</label>
-            <select id="status" v-model="taskFormData.status" class="w-full p-2 border-gray-300 rounded">
-              <option v-for="status in TASK_STATUS" :key="status.value" :value="status.value">
-                {{ status.label }}
-              </option>
-            </select>
+            <FormSelect
+              name="taskStatus-form"
+              label="Status"
+              :value="taskFormData.status"
+              :options="TASK_STATUS"
+              @input="onSelectInput"
+            />
           </div>
         </div>
         <div class="flex flex-col gap-4">
